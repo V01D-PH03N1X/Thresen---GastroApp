@@ -83,7 +83,7 @@ namespace Thresen___GastroApp
         {
             string sql = ("SELECT " +
                             "`Orders`.`ID`, " +
-                            "`Orders`.`TabelID`, " +
+                            "`Orders`.`TabelID` AS 'Table', " +
                             "`Products`.`Name`, " +
                             "`Orders`.`Processing`," +
                             "`Orders`.`Timestamp`" +

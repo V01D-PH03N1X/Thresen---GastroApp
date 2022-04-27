@@ -92,10 +92,6 @@ namespace Thresen___GastroApp
             //block alt + f4
             if (e.Alt && e.KeyCode == Keys.F4)
             {
-                //POPUP with text "so nicht mein freund!"
-                MessageBox.Show(this, "So nicht mein Freund!", "Nicht mein Freund!");
-
-
                 e.Handled = true;
                 gastroApp.exit();
             }

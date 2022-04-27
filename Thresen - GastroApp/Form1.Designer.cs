@@ -72,6 +72,7 @@
             this.tB_Password.PasswordChar = '*';
             this.tB_Password.Size = new System.Drawing.Size(100, 20);
             this.tB_Password.TabIndex = 2;
+            this.tB_Password.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tB_Password_KeyPress);
             // 
             // slbl_password
             // 
@@ -231,7 +232,7 @@
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "GastroApp - Thresen";
+            this.Text = "GastroApp - Thresen - Login";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.groupBox1.ResumeLayout(false);

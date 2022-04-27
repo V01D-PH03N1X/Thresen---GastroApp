@@ -34,8 +34,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.dlbl_welcome = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.DataGrid_Orders = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGrid_Orders)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -80,6 +83,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.DataGrid_Orders);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -87,6 +91,19 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Übersicht der Bestellungen";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // DataGrid_Orders
+            // 
+            this.DataGrid_Orders.AllowUserToOrderColumns = true;
+            this.DataGrid_Orders.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.DataGrid_Orders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.DataGrid_Orders.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.DataGrid_Orders.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataGrid_Orders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGrid_Orders.Location = new System.Drawing.Point(0, 0);
+            this.DataGrid_Orders.Name = "DataGrid_Orders";
+            this.DataGrid_Orders.Size = new System.Drawing.Size(768, 408);
+            this.DataGrid_Orders.TabIndex = 0;
             // 
             // Form2
             // 
@@ -104,6 +121,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGrid_Orders)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -115,5 +134,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label dlbl_welcome;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView DataGrid_Orders;
     }
 }

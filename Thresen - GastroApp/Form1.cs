@@ -6,7 +6,7 @@ namespace Thresen___GastroApp
 {
     public partial class Form1 : Form
     {
-        public GastroApp gastroApp = new GastroApp();
+        public static GastroApp gastroApp = new GastroApp();
         string[] login;
         public void Login()
         {
@@ -17,9 +17,9 @@ namespace Thresen___GastroApp
             string username = tB_Username.Text.ToString();
 
             gastroApp.SQL_GetLogin(dbuser, dbpassword, dbhostname, dbname);
-            if (gastroApp.SQL_Login(tB_Username.Text.ToString(), tB_Password.Text.ToString()))
+            if (gastroApp.Login(tB_Username.Text.ToString(), tB_Password.Text.ToString()))
             {
-                gastroApp.SQL_SaveLogin(dbuser, dbpassword, dbhostname, dbname, username);
+                gastroApp.SaveLogin(dbuser, dbpassword, dbhostname, dbname, username);
                 //hide Form1 and show Form2
                 this.Hide();
                 Form2 form2 = new Form2();
@@ -42,7 +42,7 @@ namespace Thresen___GastroApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            login = gastroApp.SQL_LoadLogin();
+            login = gastroApp.LoadLogin();
             //Check if lines is empty
             if (login[0] == "empty")
             {
@@ -75,11 +75,11 @@ namespace Thresen___GastroApp
             string username = tB_Username.Text.ToString();
 
             gastroApp.SQL_GetLogin(dbuser, dbpassword, dbhostname, dbname); //Setzen der Verbindungsdaten
-            if (gastroApp.SQL_Login(tB_Username.Text.ToString(), tB_Password.Text.ToString()))
+            if (gastroApp.Login(tB_Username.Text.ToString(), tB_Password.Text.ToString()))
             {
                 MessageBox.Show("Login erfolgreich!");
                 //save to File
-                gastroApp.SQL_SaveLogin(dbuser, dbpassword, dbhostname, dbname, username);
+                gastroApp.SaveLogin(dbuser, dbpassword, dbhostname, dbname, username);
             }
             else
             {

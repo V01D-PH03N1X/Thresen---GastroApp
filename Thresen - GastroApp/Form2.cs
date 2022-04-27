@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,9 @@ namespace Thresen___GastroApp
 {
     public partial class Form2 : Form
     {
-        GastroApp gastroApp = new GastroApp();
+        GastroApp gastroApp = Form1.gastroApp;
+
+
         string[] lines;
         public Form2()
         {
@@ -26,12 +29,10 @@ namespace Thresen___GastroApp
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            lines = gastroApp.SQL_LoadLogin();
+            lines = gastroApp.LoadLogin();
             string username = lines[6];
             //Set dlbl_welcome to Welcome Username with first letter capitalized
             dlbl_welcome.Text = "Herzlich Willkommen - " + username[0].ToString().ToUpper() + username.Substring(1)+"!";
-            
-
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -45,8 +46,18 @@ namespace Thresen___GastroApp
             //block alt + f4
             if (e.Alt && e.KeyCode == Keys.F4)
             {
-                e.Handled = true;
+                //e.Handled = true;
                 gastroApp.exit();
+            }
+
+            if (e.KeyCode == Keys.F10)  //Get Table on Press F10
+            {
+                DataSet ds = new DataSet();
+                ds = gastroApp.SQL_GetOrders("Trinken");
+                if (ds != null)
+                    //Fill DataGrid_Orders with data from SQL
+                    DataGrid_Orders.DataSource = ds.Tables[0];
+                    
             }
         }
     }

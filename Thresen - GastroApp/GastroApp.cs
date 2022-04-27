@@ -1,6 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Data;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace Thresen___GastroApp
 {
@@ -16,8 +17,7 @@ namespace Thresen___GastroApp
             db_name = name;
         }
 
-
-        public bool SQL_Login(string user, string pass)
+        public bool Login(string user, string pass)
         {
             bool login = false; //Ergebnis der Login-Prüfung
 
@@ -48,7 +48,7 @@ namespace Thresen___GastroApp
             return login;   //Ergebnis der Login-Prüfung zurückgeben
         }
 
-        public void SQL_SaveLogin(string user, string pass, string host, string name, string username)
+        public void SaveLogin(string user, string pass, string host, string name, string username)
         {
             //Save Login to File
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -60,7 +60,8 @@ namespace Thresen___GastroApp
             //create File and write to it
             System.IO.File.WriteAllText(path + "\\GastroApp\\lastlogin.dat", "### Logindaten der Letzen Verbindung ### \n!!! DO NOT CHANGE ANYTHING !!! \n" + host + "\n" + name + "\n" + user + "\n" + pass + "\n" + username);
         }
-        public string[] SQL_LoadLogin()
+
+        public string[] LoadLogin()
         {
             string[] lines;
             //Check if File exists
@@ -77,6 +78,46 @@ namespace Thresen___GastroApp
             //return lines
             return lines;
         }
+
+        public DataSet SQL_GetOrders(string type)
+        {
+            string sql = ("SELECT " +
+                            "`Orders`.`ID`, " +
+                            "`Orders`.`TabelID`, " +
+                            "`Products`.`Name`, " +
+                            "`Orders`.`Processing`," +
+                            "`Orders`.`Timestamp`" +
+                            "FROM `Orders` " +
+                            "LEFT JOIN `Type` ON `Type`.`Name` = '" + type + "' " +
+                            "LEFT JOIN `Products` ON `Products`.`ID` = `Orders`.`ProductID` " +
+                            "WHERE  `Products`.`ID` = `Orders`.`ProductID` " +
+                            "AND `Products`.`TypeID` = `Type`.`ID` " +
+                            "AND `Orders`.`Paid` = false " +
+                            "AND `Processing` = true " +
+                            "ORDER BY `Orders`.`Timestamp` ASC");
+
+            MySqlConnection conn = new MySqlConnection("Server=" + db_host + ";Database=" + db_name + ";Uid=" + db_user + ";Pwd=" + db_pass + ";"); //Verbindungsstring
+            MySqlCommand cmd = new MySqlCommand(sql, conn);   //Überprüfen der Login-Daten in der Datenbank
+
+            try
+            {
+                conn.Open();    //Öffnen der Verbindung
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);   
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);    //Fehlermeldung ausgeben wenn ein Fehler auftritt
+                return null;
+            }
+            finally { 
+                conn.Close();   //Schließen der Verbindung
+            }
+        }
+
         public void exit()
         {
             //Sicherstellung der Beendung des Programmes

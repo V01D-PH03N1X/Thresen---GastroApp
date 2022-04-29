@@ -97,6 +97,8 @@
             // 
             // DataGrid_Orders
             // 
+            this.DataGrid_Orders.AllowUserToAddRows = false;
+            this.DataGrid_Orders.AllowUserToDeleteRows = false;
             this.DataGrid_Orders.AllowUserToOrderColumns = true;
             this.DataGrid_Orders.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.DataGrid_Orders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;

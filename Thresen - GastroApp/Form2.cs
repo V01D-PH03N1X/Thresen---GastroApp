@@ -72,7 +72,21 @@ namespace Thresen___GastroApp
             if (ds != null)
                 //Update DataGrid_Orders with data from SQL
                 DataGrid_Orders.DataSource = ds.Tables[0];
-                
+
+
+            try
+            {
+                DataGrid_Orders.Columns[0].ReadOnly = true;
+                DataGrid_Orders.Columns[1].ReadOnly = true;
+                DataGrid_Orders.Columns[2].ReadOnly = true;
+                DataGrid_Orders.Columns[3].ReadOnly = false;
+                DataGrid_Orders.Columns[4].ReadOnly = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
@@ -86,9 +100,22 @@ namespace Thresen___GastroApp
 
         private void DataGrid_Orders_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int row = e.RowIndex;
-            DataSet ds = new DataSet();
-            ds = gastroApp.SQL_GetOrders("Trinken");
+            // Wenn das Dritte feld ausgewählt wurde
+            if (e.ColumnIndex == 3)
+            {
+                // Get rowindex from DataGrid_Orders
+                int rowIndex = e.RowIndex;
+                DataGridViewRow cell = DataGrid_Orders.Rows[rowIndex];
+                int isChecked;
+                if ((bool) cell.Cells[3].Value)
+                    isChecked = 1;
+                else
+                    isChecked = 0;
+                int id = (int)cell.Cells[0].Value;
+                gastroApp.SQL_UpdateOrders(id, isChecked);
+
+
+            }
         }
     }
 }

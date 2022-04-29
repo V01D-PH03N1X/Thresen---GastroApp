@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -35,6 +36,7 @@
             this.dlbl_welcome = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.DataGrid_Orders = new System.Windows.Forms.DataGridView();
+            this.tmr_5sec = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -50,6 +52,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(776, 437);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
             // 
             // tabPage1
             // 
@@ -104,6 +107,13 @@
             this.DataGrid_Orders.Name = "DataGrid_Orders";
             this.DataGrid_Orders.Size = new System.Drawing.Size(768, 408);
             this.DataGrid_Orders.TabIndex = 0;
+            this.DataGrid_Orders.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_Orders_CellEndEdit);
+            // 
+            // tmr_5sec
+            // 
+            this.tmr_5sec.Enabled = true;
+            this.tmr_5sec.Interval = 5000;
+            this.tmr_5sec.Tick += new System.EventHandler(this.tmr_5sec_Tick);
             // 
             // Form2
             // 
@@ -135,5 +145,6 @@
         private System.Windows.Forms.Label dlbl_welcome;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView DataGrid_Orders;
+        private System.Windows.Forms.Timer tmr_5sec;
     }
 }

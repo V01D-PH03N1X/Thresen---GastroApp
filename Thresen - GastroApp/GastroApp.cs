@@ -9,12 +9,27 @@ namespace Thresen___GastroApp
     {
         string db_user, db_pass, db_host, db_name; //Datenbank-Verbindungsdaten
 
-        public void SQL_GetLogin(string user, string pass, string host, string name)
+        public void SQL_SetLogin(string user, string pass, string host, string name)
         {
             db_user = user; //Setzen der Verbindungsdaten
             db_pass = pass;
             db_host = host;
             db_name = name;
+        }
+        public bool SQL_Login()
+        {
+            //Check ob MySQL verbindung möglich ist
+            try
+            {
+                MySqlConnection con = new MySqlConnection("Server=" + db_host + ";Database=" + db_name + ";Uid=" + db_user + ";Pwd=" + db_pass + ";");
+                con.Open();
+                con.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public bool Login(string user, string pass)

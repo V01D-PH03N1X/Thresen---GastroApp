@@ -14,6 +14,7 @@ namespace Thresen___GastroApp
     public partial class Form2 : Form
     {
         GastroApp gastroApp = Form1.gastroApp;
+        
 
 
         string[] lines;
@@ -59,6 +60,35 @@ namespace Thresen___GastroApp
                     DataGrid_Orders.DataSource = ds.Tables[0];
                     
             }
+        }
+
+        private void tmr_5sec_Tick(object sender, EventArgs e)
+        {
+            DataGrid_Orders.Refresh();
+            DataSet ds = new DataSet();
+            ds = gastroApp.SQL_GetOrders("Trinken");
+            //Check if there are new orders
+
+            if (ds != null)
+                //Update DataGrid_Orders with data from SQL
+                DataGrid_Orders.DataSource = ds.Tables[0];
+                
+
+        }
+
+        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+            tmr_5sec.Start();
+            ds = gastroApp.SQL_GetOrders("Trinken");
+            DataGrid_Orders.DataSource = ds.Tables[0];
+        }
+
+        private void DataGrid_Orders_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int row = e.RowIndex;
+            DataSet ds = new DataSet();
+            ds = gastroApp.SQL_GetOrders("Trinken");
         }
     }
 }

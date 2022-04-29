@@ -16,7 +16,7 @@ namespace Thresen___GastroApp
             string dbname = tB_dbname.Text.ToString();
             string username = tB_Username.Text.ToString();
 
-            gastroApp.SQL_GetLogin(dbuser, dbpassword, dbhostname, dbname);
+            gastroApp.SQL_SetLogin(dbuser, dbpassword, dbhostname, dbname);
             if (gastroApp.Login(tB_Username.Text.ToString(), tB_Password.Text.ToString()))
             {
                 gastroApp.SaveLogin(dbuser, dbpassword, dbhostname, dbname, username);
@@ -51,8 +51,8 @@ namespace Thresen___GastroApp
             else
             {
                 tB_dbhostname.Text = login[2];
-                tB_dbuser.Text = login[3];
-                tB_dbname.Text = login[4];
+                tB_dbname.Text = login[3];
+                tB_dbuser.Text = login[4];
                 tB_dbpassword.Text = login[5];
                 tB_Username.Text = login[6];
             }
@@ -74,17 +74,19 @@ namespace Thresen___GastroApp
             string dbname = tB_dbname.Text.ToString();
             string username = tB_Username.Text.ToString();
 
-            gastroApp.SQL_GetLogin(dbuser, dbpassword, dbhostname, dbname); //Setzen der Verbindungsdaten
-            if (gastroApp.Login(tB_Username.Text.ToString(), tB_Password.Text.ToString()))
+            gastroApp.SQL_SetLogin(dbuser, dbpassword, dbhostname, dbname); //Setzen der Verbindungsdaten
+            if (gastroApp.SQL_Login()) //Prüfen ob Verbindung erfolgreich war
             {
-                MessageBox.Show("Login erfolgreich!");
-                //save to File
+                //Message box with text "Verbindung erfolgreich!"
+                MessageBox.Show(this, "Verbindung erfolgreich! \nVerbindungsdaten werden gespeichert!", "Verbindung erfolgreich!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 gastroApp.SaveLogin(dbuser, dbpassword, dbhostname, dbname, username);
             }
             else
             {
-                MessageBox.Show("Login fehlgeschlagen!");
+                //Message box with text "Verbindung fehlgeschlagen!"
+                MessageBox.Show(this, "Verbindung fehlgeschlagen! \nVerbindungsdaten werden nicht gespeichert!", "Verbindung fehlgeschlagen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

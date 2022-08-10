@@ -133,7 +133,31 @@ namespace Thresen___GastroApp
             }
         }
 
-        public void exit()
+
+        public void SQL_UpdateOrders(int id, int isChecked)
+        {
+            string sql = ("UPDATE `Orders` SET `Processing`= '" + isChecked + "' WHERE `ID`= '" + id + "'");
+
+            MySqlConnection conn = new MySqlConnection("Server=" + db_host + ";Database=" + db_name + ";Uid=" + db_user + ";Pwd=" + db_pass + ";"); //Verbindungsstring
+            MySqlCommand cmd = new MySqlCommand(sql, conn);   //Überprüfen der Login-Daten in der Datenbank
+
+            try
+            {
+                conn.Open();    //Öffnen der Verbindung
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);    //Fehlermeldung ausgeben wenn ein Fehler auftritt
+            }
+            finally
+            {
+                conn.Close();   //Schließen der Verbindung
+            }
+        }
+
+            public void exit()
         {
             //Sicherstellung der Beendung des Programmes
             DialogResult result = MessageBox.Show("Bist du sicher, dass du das Programm beenden willst?", "Beenden", MessageBoxButtons.YesNo);
